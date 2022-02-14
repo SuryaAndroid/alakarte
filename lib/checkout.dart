@@ -107,7 +107,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       SizedBox(
                         height: 20,
                       ),
-                      Container(
+                      /*Container(
                         height: 200,
                         width: MediaQuery.of(context).size.width,
                         color: Colors.grey[300],
@@ -140,7 +140,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
                           ],
                         ),
-                      )
+                      )*/
                     ],
                   )
               )

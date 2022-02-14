@@ -1,3 +1,4 @@
+import 'package:alakarte/about_us.dart';
 import 'package:alakarte/food_ctgry_tabview.dart';
 import 'package:alakarte/home_activity.dart';
 import 'package:alakarte/introscreen.dart';
@@ -61,8 +62,178 @@ class _HomePageState extends State<HomePage> {
       }});
 
     return Scaffold(
-      drawer: Drawer(
-        child: Container(
+      appBar: AppBar(
+        backgroundColor: red,
+        centerTitle: true,
+        title: Text('HOTELLIST'),
+        leading:IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: (){
+            _displayDialog(context);},
+        ) ,
+      ),
+      body:Container(
+        height:MediaQuery.of(context).size.height*0.9,
+        width: MediaQuery.of(context).size.width,
+        child:SingleChildScrollView(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Visibility(
+                  visible: locationView,
+                  child: AnimatedContainer(
+                    duration: Duration(seconds: 3),
+                    height: 300,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage("assets/images/maps.jpeg")
+                        )
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300], borderRadius: BorderRadius.circular(6)),
+                  padding: EdgeInsets.only(left: 6,),
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  height: 40,
+                  margin: EdgeInsets.all(10),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        hintText: "Search",
+                        border: InputBorder.none,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+
+                          },
+                          icon: Icon(Icons.search,color: black,),
+                        )),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                  child: Text('Hotel List',style: TextStyle(fontSize: 19),),
+                ),
+                Container(
+                    height:MediaQuery.of(context).size.height*0.75,
+                    child: ListView.builder(
+                        controller: _controller,
+                        itemCount: 10,
+                        itemBuilder:(BuildContext context, int index) {
+                          return Container(
+                              height:MediaQuery.of(context).size.height*0.2,
+                              width: MediaQuery.of(context).size.width,
+                              child:GestureDetector(
+                                onTap: (){
+                                  Navigator.push(
+                                      context, MaterialPageRoute(builder: (context) => HomeActivity()));
+                                },
+                                child:Card(
+                                    child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width:100,
+                                            //   height: 120,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: new AssetImage('assets/images/parotta.jpg'),fit: BoxFit.cover),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context).size.width-110,
+                                            padding: EdgeInsets.symmetric(horizontal: 6,vertical: 6),
+                                            child: Column(
+                                              // mainAxisAlignment: MainAxisAlignment.center,
+                                              //  crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                    child:Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Container(
+                                                          child: Text('Hotel Annapoorna',style: TextStyle(fontSize: 16)),
+                                                        ),
+                                                        Container(
+                                                          padding: EdgeInsets.all(3),
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(4),
+                                                            border: Border.all(),
+                                                          ),
+                                                          child: CircleAvatar(
+                                                            radius: 3,
+                                                            backgroundColor: Colors.green,
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Container(
+                                                              child: SizedBox(
+                                                                height:15,
+                                                                // width: 89,
+                                                                child: CustomPaint(
+                                                                  painter: PriceTagPaint(),
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      "Chettinadfood",
+                                                                      style: TextStyle(
+                                                                        fontSize: 9,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                          ),
+                                                        )
+                                                      ],
+                                                    )
+                                                ),
+                                                Container(
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+                                                          child: Icon(
+                                                            Icons.star,size: 19,color: Colors.yellow,
+                                                          ),
+                                                        ),
+                                                        Container(child: Text('4.5'),)
+
+                                                      ],
+                                                    )
+                                                ),
+                                                Divider(color: black,),
+                                                Container(
+                                                    child: Text('125/R.S.Puram,Coimbatore,TamilNadu 641002',style: TextStyle(fontSize: 13),)
+                                                ),
+                                              ],
+                                            ),
+                                          )
+
+                                        ]
+                                    )
+
+                                ),
+                              )
+                          );
+                        }
+                    )
+                )
+              ]
+          ),
+        ),
+      ),
+    );
+  }
+
+  _displayDialog(BuildContext context) {
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: false,
+      transitionDuration: Duration(milliseconds: 200),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Container(
           // width: MediaQuery.of(context).size.width-100,
           //  height:MediaQuery.of(context).size.height,
           child: Scaffold(
@@ -74,23 +245,23 @@ class _HomePageState extends State<HomePage> {
                       Column(
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                height: 100,
-                                width: 110,
-                                child: Image(
-                                  image: AssetImage("assets/images/logo.png"),),
-                              ),
-                             Expanded(
-                               child: Container(
-                                 alignment: Alignment.centerRight,
-                                 child: IconButton(onPressed: (){Navigator.pop(context);}, icon:Icon(Icons.cancel))),
-                               ),
-                ]
-                             ),
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  height: 100,
+                                  width: 110,
+                                  child: Image(
+                                    image: AssetImage("assets/images/logo.png"),),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                      alignment: Alignment.centerRight,
+                                      child: IconButton(onPressed: (){Navigator.pop(context);}, icon:Icon(Icons.cancel))),
+                                ),
+                              ]
+                          ),
                           Container(
                             padding: EdgeInsets.only(top: 20),
                             child:Column(
@@ -116,6 +287,8 @@ class _HomePageState extends State<HomePage> {
                                 Divider(height: 2,),
                                 ListTile(
                                   onTap: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>MenuPage()));
+
                                   },
                                   leading: Icon(Icons.person,color: black,),
                                   title: Text('PROFILE'),
@@ -141,7 +314,8 @@ class _HomePageState extends State<HomePage> {
                                 Divider(height: 2,),
                                 ListTile(
                                   onTap: (){
-
+                                    Navigator.push(
+                                        context, MaterialPageRoute(builder: (context) => AboutUs()));
                                   },
                                   leading: Icon(Icons.people,color: black,),
                                   title: Text('ABOUT US'),
@@ -178,170 +352,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-        ),
-      ),
-      appBar: AppBar(
-        backgroundColor: red,
-        centerTitle: true,
-        title: Text('HOTELLIST'),
-        /*leading:IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: (){
-            _displayDialog(context);},
-        ) ,*/
-      ),
-        body:Container(
-            height:MediaQuery.of(context).size.height*0.9,
-            width: MediaQuery.of(context).size.width,
-            child:SingleChildScrollView(
-              child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Visibility(
-                        visible: locationView,
-                        child: AnimatedContainer(
-                          duration: Duration(seconds: 3),
-                          height: 340,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage("assets/images/maps.jpeg")
-                              )
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: grey, borderRadius: BorderRadius.circular(6)),
-                        padding: EdgeInsets.only(left: 6,),
-                        width: double.infinity,
-                        alignment: Alignment.center,
-                        height: 40,
-                        margin: EdgeInsets.all(10),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(5),
-                              hintText: "Search",
-                              border: InputBorder.none,
-                              suffixIcon: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.search,color: white,),
-                              )),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                        child: Text('Hotel List',style: TextStyle(fontSize: 18),),
-                      ),
-                      Container(
-                          height:MediaQuery.of(context).size.height*0.75,
-                              child: ListView.builder(
-                                controller: _controller,
-                                  itemCount: 10,
-                                  itemBuilder:(BuildContext context, int index) {
-                                    return Container(
-                                        height: 150,
-                                        child:GestureDetector(
-                                          onTap: (){
-                                            Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeActivity()));
-                                          },
-                                          child:Card(
-                                              child: Row(
-                                                  children: [
-                                                    Container(
-                                                      width:80,
-                                                      height: 120,
-                                                      child: Image(
-                                                        image: AssetImage('assets/images/listimg3.jpeg'),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      width: 255,
-                                                      padding: EdgeInsets.symmetric(horizontal: 10),
-                                                      child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Container(
-                                                              child:Row(
-                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                children: [
-                                                                  Container(
-                                                                    child: Text('Hotel Annapoorna',style: TextStyle(fontSize: 13)),
-                                                                  ),
-                                                                  Container(
-                                                                    padding: EdgeInsets.all(3),
-                                                                    decoration: BoxDecoration(
-                                                                      borderRadius: BorderRadius.circular(4),
-                                                                      border: Border.all(),
-                                                                    ),
-                                                                    child: CircleAvatar(
-                                                                      radius: 3,
-                                                                      backgroundColor: Colors.green,
-                                                                    ),
-                                                                  ),
-                                                                  Expanded(
-                                                                    child: Container(
-
-                                                                        child: SizedBox(
-                                                                          height:15,
-                                                                          width: 89,
-                                                                          child: CustomPaint(
-                                                                            painter: PriceTagPaint(),
-                                                                            child: Center(
-                                                                              child: Text(
-                                                                                "Chettinadfood",
-                                                                                style: TextStyle(
-                                                                                  fontSize: 9,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        )
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              )
-                                                          ),
-                                                          Container(
-                                                              child: Row(
-                                                                children: [
-                                                                  Container(
-                                                                    child: Icon(
-                                                                      Icons.star,size: 19,color: Colors.yellow,
-                                                                    ),
-                                                                  ),
-                                                                  Container(child: Text('4.5'),)
-
-                                                                ],
-                                                              )
-                                                          ),
-                                                          Divider(color: black,),
-                                                          Container(
-                                                              child: Text('125/R.S.Puram,Coimbatore,TamilNadu 641002',style: TextStyle(fontSize: 13),)
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-
-                                                  ]
-                                              )
-
-                                          ),
-                                        )
-                                    );
-                                  }
-                              )
-                          )
-                    ]
-                ),
-            ),
-        ),
+        );
+      },
     );
-  }
-
-  _displayDialog(BuildContext context) {
-
   }
 }
 class PriceTagPaint extends CustomPainter {
