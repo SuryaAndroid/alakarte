@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:alakarte/about_us.dart';
 import 'package:alakarte/menuPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +121,7 @@ class _HomeActivityState extends State<HomeActivity> {
                 children: <Widget>[
                   IconButton(
                     onPressed: () {
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AboutUs()));
                     },
                     icon: Icon(Icons.shopping_cart),
                     iconSize: 28,
@@ -132,6 +133,7 @@ class _HomeActivityState extends State<HomeActivity> {
                       opacity: 1.0,
                       child: GestureDetector(
                         onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AboutUs()));
                         },
                         child: CircleAvatar(
                           backgroundColor: grey,
