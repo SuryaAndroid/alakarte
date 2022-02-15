@@ -173,7 +173,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>OrderSummary()));
                   },
                 ),
-              IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_outlined,color: white,))
+              IconButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>OrderSummary()));
+              }, icon: Icon(Icons.arrow_forward_outlined,color: white,))
 
             ],
           ),

@@ -61,7 +61,7 @@ class _WishListState extends State<WishList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
+     /* appBar:AppBar(
         backgroundColor: red,
         centerTitle: true,
         title: Text('WHISLIST'),
@@ -71,7 +71,7 @@ class _WishListState extends State<WishList> {
             Navigator.pop(context);
           },
         ),
-      ),
+      ),*/
       body: Container(
         child:ListView.builder(
             itemCount: 8,

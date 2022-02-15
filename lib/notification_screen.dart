@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
-
   @override
   _NotificationScreenState createState() => _NotificationScreenState();
 }
@@ -18,17 +17,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: red,
-          centerTitle: true,
-          leading: IconButton(
-            onPressed: (){
-              Navigator.of(context).pop(context);
-            },
-            icon: Icon(CupertinoIcons.back),
-          ),
-          title: Text('NOTIFICATIONS'),
-        ),
         body: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,

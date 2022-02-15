@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:alakarte/about_us.dart';
+import 'package:alakarte/drawer_screen.dart';
 import 'package:alakarte/menuPage.dart';
 import 'package:alakarte/productdetials.dart';
 import 'package:flutter/cupertino.dart';
@@ -129,6 +130,12 @@ class _HomeActivityState extends State<HomeActivity> {
         home: Scaffold(
           //APP BAR
           appBar: AppBar(
+            leading: IconButton(
+              onPressed: (){
+                Navigator.of(context).pop(context);
+              },
+              icon: Icon(CupertinoIcons.back),
+            ),
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(50.0),
               child: Container(
@@ -155,20 +162,13 @@ class _HomeActivityState extends State<HomeActivity> {
             ),
             backgroundColor: red,
             centerTitle: true,
-            leading: IconButton(
-              onPressed: () {
-                /*Navigator.push(context, MaterialPageRoute(builder: (context)=> Sample()));*/
-                // Navigator.push(context, MaterialPageRoute(builder: (context)=>OrderConfirmation()));
-              },
-              icon: Icon(Icons.menu),
-            ),
             title: Text('HOME'),
             actions: [
               Stack(
                 children: <Widget>[
                   IconButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AboutUs()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CartScreen()));
                     },
                     icon: Icon(Icons.shopping_cart),
                     iconSize: 28,

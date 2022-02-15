@@ -275,7 +275,7 @@ class _ProductDetialsState extends State<ProductDetials> {
                       children:<Widget> [
                         Container(
                           margin: EdgeInsets.all(10),
-                          color: grey,
+                          color: Colors.grey[300],
                           height: 100,
                           child: TextFormField(
                             controller: controller,
@@ -311,13 +311,6 @@ class _ProductDetialsState extends State<ProductDetials> {
                 ],
               ),
             )
-
-
-
-
-
-
-
           ],
         ),
       ),

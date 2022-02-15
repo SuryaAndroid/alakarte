@@ -1,3 +1,4 @@
+import 'package:alakarte/drawer_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,16 +19,12 @@ class _AboutUsState extends State<AboutUs> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        /*drawer: DrawerScreen(),
         appBar: AppBar(
           backgroundColor: red,
           centerTitle: true,
-          leading: IconButton(
-            onPressed: () {
-            },
-            icon: Icon(Icons.menu),
-          ),
           title: Text('ABOUT US'),
-        ),
+        ),*/
         body: Container(
           height: MediaQuery.of(context).size.height*0.9,
           width: MediaQuery.of(context).size.width,
@@ -87,68 +84,64 @@ class _AboutUsState extends State<AboutUs> {
                         ),
                       ),
                       //Icons ROW
-                      Container(
-                        margin: EdgeInsets.only(top: 25,left: 8,right: 8),
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: grey,
-                        ),
-                        height: 60,
-                        width:MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(left: 15,right: 15),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.facebook_outlined,size: 40,),
-                                  Container(
-                                    color: black,
-                                    height: 40,
-                                    width: 2,
-                                  ),
-                                ],
+                      IntrinsicHeight(
+                        child: Container(
+                          margin: EdgeInsets.only(top: 25,left: 8,right: 8),
+                          padding: EdgeInsets.only(left: 15,right: 15),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: grey,
+                          ),
+                          height: 60,
+                          width:MediaQuery.of(context).size.width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.facebook_outlined,size: 40,),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  Icon(Icons.facebook_outlined,size: 40,),
-                                  Container(
-                                    color: black,
-                                    height: 40,
-                                    width: 2,
-                                  ),
-                                ],
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: VerticalDivider(thickness: 2),
                               ),
-                            ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  Icon(Icons.youtube_searched_for_outlined,size: 40,),
-                                  Container(
-                                    color: black,
-                                    height: 40,
-                                    width: 2,
-                                  ),
-                                ],
+                              Container(
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.facebook_outlined,size: 40,),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  Icon(Icons.facebook_outlined,size: 40,),
-                                  Container(
-                                    color: black,
-                                    height: 40,
-                                    width: 2,
-                                  ),
-                                ],
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: VerticalDivider(thickness: 2),
                               ),
-                            ),
-                          ],
+                              Container(
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Icon(Icons.youtube_searched_for_outlined,size: 40,),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: VerticalDivider(thickness: 2),
+                              ),
+                              Container(
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.facebook_outlined,size: 40,),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       )
 

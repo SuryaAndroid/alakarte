@@ -1,3 +1,4 @@
+import 'package:alakarte/drawer_screen.dart';
 import 'package:alakarte/menucategory.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,17 +16,12 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       /* drawer: DrawerScreen(),
       appBar: AppBar(
         backgroundColor: red,
         centerTitle: true,
         title: Text('MENU'),
-        leading:IconButton(
-          icon:Icon(CupertinoIcons.chevron_back),
-          onPressed: (){
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      ),*/
       body: Container(
         margin: EdgeInsets.all(15),
         child:GridView.builder(

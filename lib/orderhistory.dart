@@ -1,3 +1,4 @@
+import 'package:alakarte/drawer_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -18,17 +19,12 @@ class _OrderHistoryState extends State<OrderHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /*drawer: DrawerScreen(),
       appBar:AppBar(
         backgroundColor: red,
         centerTitle: true,
         title: Text('ORDERHISTORY'),
-        leading: IconButton(
-          icon:Icon(CupertinoIcons.chevron_back),
-          onPressed: (){
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      ),*/
       body: Container(
         child:  ListView.builder(
           itemCount: 5,
