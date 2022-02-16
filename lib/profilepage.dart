@@ -1,4 +1,3 @@
-import 'package:alakarte/drawer_screen.dart';
 import 'package:alakarte/pass_reset_activity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:alakarte/drawer_screen.dart';
+
 import 'package:alakarte/food_ctgry_tabview.dart';
 import 'package:alakarte/productdetials.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +18,6 @@ class _MenuCategoryState extends State<MenuCategory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: DrawerScreen(),
         appBar:AppBar(
           backgroundColor: red,
           centerTitle: true,

@@ -1,5 +1,4 @@
 import 'package:alakarte/about_us.dart';
-import 'package:alakarte/drawer_screen.dart';
 import 'package:alakarte/food_ctgry_tabview.dart';
 import 'package:alakarte/home_activity.dart';
 import 'package:alakarte/hotels_screen.dart';
@@ -120,72 +119,78 @@ class _HomePageState extends State<HomePage> {
 
       });
 
-    return Scaffold(
-      drawer: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white
-        ),
-        margin: EdgeInsets.only(top: 60,left: 7,bottom: 15,right: 7,),
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              Column(
-                children: [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Container(
-                              alignment: Alignment.centerRight,
-                              child: IconButton(
-                                onPressed: (){Navigator.pop(context);}, icon:Icon(Icons.close),iconSize: 35,color: Colors.black38,)
+    return WillPopScope(
+      onWillPop: () async{
+        print("will pop....");
+        return false;
+      },
+      child: Scaffold(
+        drawer: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white
+          ),
+          margin: EdgeInsets.only(top: 60,left: 7,bottom: 15,right: 7,),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                Column(
+                  children: [
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Container(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(
+                                  onPressed: (){Navigator.pop(context);}, icon:Icon(Icons.close),iconSize: 35,color: Colors.black38,)
+                            ),
                           ),
-                        ),
-                      ]
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.all(10),
-                    height: 100,
-                    width: double.infinity,
-                    child: Image(
-                      image: AssetImage("assets/images/logo.png"),),
-                  ),
-                ],
-              ),
-              Column(
-                children: drawerOptions,
-              ),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(bottom: 10),
-                  alignment: Alignment.bottomLeft,
-                    child:ListTile(
-                      onTap: (){
-                        Navigator.pop(context);
-                        Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => IntroScreen()));
-                      },
-                      leading: Icon(Icons.logout,color: black,),
-                      title: Text('LOGOUT',style: TextStyle(fontSize: 16),),
-                    )
+                        ]
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.all(10),
+                      height: 100,
+                      width: double.infinity,
+                      child: Image(
+                        image: AssetImage("assets/images/logo.png"),),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                Column(
+                  children: drawerOptions,
+                ),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 10),
+                    alignment: Alignment.bottomLeft,
+                      child:ListTile(
+                        onTap: (){
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context, MaterialPageRoute(builder: (context) => IntroScreen()));
+                        },
+                        leading: Icon(Icons.logout,color: black,),
+                        title: Text('LOGOUT',style: TextStyle(fontSize: 16),),
+                      )
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
+        appBar: AppBar(
+          backgroundColor: red,
+          centerTitle: true,
+          title: widget.drawerItems[_selectedDrawerIndex].title=="HOME"?
+          Text("HOTELS"):Text(widget.drawerItems[_selectedDrawerIndex].title)
+        ),
+        body: _getDrawerItemWidget(_selectedDrawerIndex),
       ),
-      appBar: AppBar(
-        backgroundColor: red,
-        centerTitle: true,
-        title: widget.drawerItems[_selectedDrawerIndex].title=="HOME"?
-        Text("HOTELS"):Text(widget.drawerItems[_selectedDrawerIndex].title)
-      ),
-      body: _getDrawerItemWidget(_selectedDrawerIndex),
     );
   }
 

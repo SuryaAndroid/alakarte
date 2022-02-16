@@ -14,15 +14,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Color black = Color(0xff000000);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Container(
+    return Scaffold(
+          body: Column(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height*0.89,
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
             child: ListView.builder(
-              itemCount: 20,
-                itemBuilder: (context,index){
+                shrinkWrap: true,
+                itemCount: 10,
+                itemBuilder: (context, index) {
                   return ListTile(
                     leading: Container(
                       height: 100,
@@ -34,20 +35,25 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       ),
                     ),
                     title: Padding(
-                      padding:EdgeInsets.only(top: 10),
-                      child: Text('hi surya , we received your order soon we will deliver it on time keep shop thank you.'
-                          ,style: TextStyle(fontSize: 13),
+                      padding: EdgeInsets.only(top: 10),
+                      child: Text(
+                        'hi surya , we received your order soon we will deliver it on time keep shop thank you.',
+                        style: TextStyle(fontSize: 13),
                       ),
                     ),
                     subtitle: Padding(
-                      padding:EdgeInsets.only(top: 8),
-                      child: Text("10/10/2010",style: TextStyle(fontSize: 13),),
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        "10/10/2010",
+                        style: TextStyle(fontSize: 13),
+                      ),
                     ),
                   );
-                }
-            ),
-        ),
-      ),
-    );
+                }),
+          )
+        ],
+          )
+      );
+
   }
 }
