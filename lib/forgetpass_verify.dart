@@ -2,7 +2,7 @@ import 'package:alakarte/pass_reset_activity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:pin_input_text_field/pin_input_text_field.dart';
 
 class ForgetPassOtp extends StatefulWidget {
   @override
@@ -66,8 +66,11 @@ class _ForgetPassOtpState extends State<ForgetPassOtp> {
                   ),
                   //OTP code editor
                   Container(
+                    height: 50,
                     margin: EdgeInsets.only(top: 50,left: 20,right: 20),
-                    child: TextField()
+                    child: PinInputTextField(
+                      pinLength: 4,
+                    ),
                   ),
                   //Send btn
                   Container(

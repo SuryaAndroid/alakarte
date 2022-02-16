@@ -1,24 +1,39 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:alakarte/about_us.dart';
-import 'package:alakarte/drawer_screen.dart';
-import 'package:alakarte/menuPage.dart';
+import 'package:alakarte/cart_screen.dart';
 import 'package:alakarte/productdetials.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import 'cart_screen.dart';
-import 'food_ctgry_tabview.dart';
-import 'order_confirmation.dart';
 
 class HomeActivity extends StatefulWidget {
   const HomeActivity({Key? key}) : super(key: key);
+
   @override
   _HomeActivityState createState() => _HomeActivityState();
 }
 
 class _HomeActivityState extends State<HomeActivity> {
+  // final List<Tab> tabs = <Tab>[
+  //   // Tab(child: Column(children: [
+  //   //   Container(height:35,color: Colors.black,
+  //   //     width: 35,child: CircleAvatar(backgroundImage:AssetImage('assets/images/idly.jpg'),),),
+  //   //   Container(child: Text('Breakfast',style: TextStyle(fontSize: 16,color: Colors.black),)),
+  //   // ],)
+  //   // ),
+  //   Tab(child: Text('Lunch',style: TextStyle(fontSize: 16,color:Colors.black),),),
+  //   Tab(child: Text('Brunch',style: TextStyle(fontSize: 16,color:Colors.black),),),
+  //   Tab(child: Text('Dinner',style: TextStyle(fontSize: 16,color:Colors.black),),),
+  //   Tab(child: Text('Teatime',style: TextStyle(fontSize: 16,color:Colors.black),),)
+  // ];
+  List<Tab> tabs = <Tab>[
+    Tab(text: "Breakfast",),
+    Tab(text: "Lunch"),
+    Tab(text: "Brunch"),
+    Tab(text: "Dinner"),
+    Tab(text: "Teatime"),
+  ];
+
+
   Color red = Color(0xffDB90000);
   Color grey = Color(0xff7EABB7);
   Color white = Color(0xffFFFFFF);
@@ -29,16 +44,6 @@ class _HomeActivityState extends State<HomeActivity> {
     "assets/images/biriyani.jpg",
     "assets/images/parotta.jpg",
     "assets/images/dosa.jpg"
-  ];
-
-
-  List<Tab> tabs = <Tab>[
-    Tab(text: "Idly"),
-    Tab(text: "Dosa"),
-    Tab(text: "Biriyani"),
-    Tab(text: "Variety rice"),
-    Tab(text: "Chinees food"),
-    Tab(text: "Chicken"),
   ];
 
   List foodList = [
@@ -66,6 +71,7 @@ class _HomeActivityState extends State<HomeActivity> {
   int slideIndex = 0;
   PageController _controller = PageController(initialPage: 0);
   late Timer _timer;
+
   Widget _buildPageIndicator(bool isCurrentPage) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 4.0),
@@ -80,7 +86,6 @@ class _HomeActivityState extends State<HomeActivity> {
 
   @override
   void initState() {
-
     setState(() {
       tabText = tabs[0].text!;
       if (cartItemCount <= 0) {
@@ -95,26 +100,15 @@ class _HomeActivityState extends State<HomeActivity> {
       }
     });
 
+    print(tabText);
+    print(tabs);
+    print(cartItemCount);
+    print(tabs.length);
+
+
     // TODO: implement initState
     super.initState();
 
-    // SystemChrome.setSystemUIOverlayStyle(
-    //     SystemUiOverlayStyle(statusBarColor: red));
-
-   /* _timer = Timer.periodic(Duration(seconds: 5), (Timer timer)
-    {
-      if (slideIndex < 2) {
-        slideIndex++;
-      } else {
-        slideIndex = 0;
-      }
-
-      _controller.animateToPage(
-        slideIndex,
-        duration: Duration(milliseconds: 400),
-        curve: Curves.easeIn,
-      );
-    });*/
   }
 
   @override
@@ -123,168 +117,169 @@ class _HomeActivityState extends State<HomeActivity> {
     _timer.cancel();
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          //APP BAR
-          appBar: AppBar(
-            leading: IconButton(
-              onPressed: (){
-                Navigator.of(context).pop(context);
-              },
-              icon: Icon(CupertinoIcons.back),
+    return Scaffold(
+      backgroundColor: white,
+      appBar: AppBar(
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(50.0),
+          child: Container(
+            decoration: BoxDecoration(
+                color: white, borderRadius: BorderRadius.circular(6)),
+            padding: EdgeInsets.only(
+              left: 6,
             ),
-            bottom: PreferredSize(
-              preferredSize: Size.fromHeight(50.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: white, borderRadius: BorderRadius.circular(6)),
-                padding: EdgeInsets.only(
-                  left: 6,
-                ),
-                width: double.infinity,
-                alignment: Alignment.center,
-                height: 40,
-                margin: EdgeInsets.all(10),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      hintText: "Search",
-                      border: InputBorder.none,
-                      suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.search),
-                      )),
-                ),
+            width: double.infinity,
+            alignment: Alignment.center,
+            height: 40,
+            margin: EdgeInsets.all(10),
+            child: TextFormField(
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(5),
+                  hintText: "Search",
+                  border: InputBorder.none,
+                  suffixIcon: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.search),
+                  )),
+            ),
+          ),
+        ),
+        backgroundColor: red,
+        centerTitle: true,
+        leading:IconButton(
+          icon:Icon(CupertinoIcons.chevron_back),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        ),
+        title: Text('HOME'),
+        actions: [
+          Stack(
+            children: <Widget>[
+              IconButton(
+                onPressed: () {
+                  //  Navigator.push(context, MaterialPageRoute(builder: (context)=>AboutUs()));
+                },
+                icon: Icon(Icons.shopping_cart),
+                iconSize: 28,
               ),
-            ),
-            backgroundColor: red,
-            centerTitle: true,
-            title: Text('HOME'),
-            actions: [
-              Stack(
-                children: <Widget>[
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CartScreen()));
+              Positioned(
+                top: 4,
+                right: 8,
+                child: Opacity(
+                  opacity: 1.0,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AboutUs()));
                     },
-                    icon: Icon(Icons.shopping_cart),
-                    iconSize: 28,
-                  ),
-                  Positioned(
-                    top: 4,
-                    right: 8,
-                    child: Opacity(
-                      opacity: 1.0,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AboutUs()));
-                        },
-                        child: CircleAvatar(
-                          backgroundColor: grey,
-                          radius: 9,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 2),
-                            child: Text(
-                              "5",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                    child: CircleAvatar(
+                      backgroundColor: grey,
+                      radius: 9,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 2),
+                        child: Text(
+                          "5",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
                   ),
-                ],
+                ),
               ),
             ],
           ),
-          //MAIN SCREEN
-          body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.9,
-            child: ListView(
-              children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  child: PageView.builder(
-                      controller: _controller,
-                      onPageChanged: (index) {
-                        setState(() {
-                          slideIndex = index;
-                        });
-                      },
-                      itemCount: foodItems.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Container(
-                            height: 170,
-                            child: Stack(
-                              children: <Widget>[
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: MediaQuery.of(context).size.height,
-                                  margin: EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image:
-                                        AssetImage("${foodItems[index]}"),
-                                      )),
-                                ),
-                                Positioned(
-                                    child: Icon(
-                                      Icons.brightness_5_sharp,
-                                      color: Color(0xffF7CE16),
-                                      size: 40,
-                                    )),
-                                Positioned(
-                                    top: 5,
-                                    left: 5,
-                                    child: CircleAvatar(
-                                      backgroundColor: Color(0xffF7CE16),
-                                      radius: 13,
-                                    )),
-                                Positioned(
-                                  top: 11,
-                                  left: 9,
-                                  child: Center(
-                                      child: Text(
-                                        '${rate[index]}%',
-                                        style:
-                                        TextStyle(color: black, fontSize: 13),
-                                      )),
-                                ),
-
-                              ],
-                            )
-                        );
-                      }),
-                ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+        ],
+      ),
+      body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.9,
+          child: ListView(
+              children:[
+                Column(
                     children: [
-                      for (int i = 0; i < foodItems.length; i++)
-                        i == slideIndex
-                            ? _buildPageIndicator(true)
-                            : _buildPageIndicator(false),
-                    ],
-                  ),
-                ),
-                //Page indictors
-                Container(
-                  margin: EdgeInsets.only(left: 10, right: 10,top: 10),
-                  height: 0.3,
-                  color: black,
-                ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        child: PageView.builder(
+                            controller: _controller,
+                            onPageChanged: (index) {
+                              setState(() {
+                                slideIndex = index;
+                              });
+                            },
+                            itemCount: foodItems.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                  height: 170,
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        height: MediaQuery.of(context).size.height,
+                                        margin: EdgeInsets.all(6),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10),
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image:
+                                              AssetImage("${foodItems[index]}"),
+                                            )),
+                                      ),
+                                      Positioned(
+                                          child: Icon(
+                                            Icons.brightness_5_sharp,
+                                            color: Color(0xffF7CE16),
+                                            size: 40,
+                                          )),
+                                      Positioned(
+                                          top: 5,
+                                          left: 5,
+                                          child: CircleAvatar(
+                                            backgroundColor: Color(0xffF7CE16),
+                                            radius: 13,
+                                          )),
+                                      Positioned(
+                                        top: 11,
+                                        left: 9,
+                                        child: Center(
+                                            child: Text(
+                                              '${rate[index]}%',
+                                              style:
+                                              TextStyle(color: black, fontSize: 13),
+                                            )),
+                                      ),
 
+                                    ],
+                                  )
+                              );
+                            }),
+                      ),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            for (int i = 0; i < foodItems.length; i++)
+                              i == slideIndex
+                                  ? _buildPageIndicator(true)
+                                  : _buildPageIndicator(false),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 10, right: 10,top: 10),
+                        height: 0.3,
+                        color: black,
+                      ),
+                    ]),
                 //Container Text
                 Container(
                   margin: EdgeInsets.all(10),
@@ -296,443 +291,420 @@ class _HomeActivityState extends State<HomeActivity> {
                   ),
                 ),
                 Container(
-                  padding:EdgeInsets.all(9),
-                  height: 60,
-                  color: grey,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.all(10),
+                    height: 50,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RaisedButton(
-                            onPressed: (){},
-                          child: Text('Break fast'),
-                        ),
-                        SizedBox(width: 15,),
-                        RaisedButton(
-                          onPressed: (){},
-                          child: Text('Lunch'),
-                        ),
-                        SizedBox(width: 15,),
-                        RaisedButton(
-                          onPressed: (){},
-                          child: Text('Brunch'),
-                        ),
-                        SizedBox(width: 15,),
-                        RaisedButton(
-                          onPressed: (){},
-                          child: Text('Dinner'),
-                        ),
-                        SizedBox(width: 15,),
-                        RaisedButton(
-                          onPressed: (){},
-                          child: Text('Tea time'),
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text('${tabText} list',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),),
+                        Expanded(
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Container(
+                                    child: IconButton(
+                                      icon: Icon(Icons.grid_view),
+                                      onPressed: () {
+                                        setState(() {
+                                          listVisible = false;
+                                          gridVisible = true;
+                                        });
+                                      },
+                                    )),
+                                Container(
+                                    child: IconButton(
+                                      icon: Icon(Icons.list),
+                                      onPressed: () {
+                                        setState(() {
+                                          listVisible = true;
+                                          gridVisible = false;
+                                        });
+                                      },
+                                    )),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
-                    ),
-                  ),
-                ),
-                //ListView Items
-                SingleChildScrollView(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.46,
-                    child:Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.46,
-                      child: Column(
-                            children: <Widget>[ //Header
-                              Container(
-                                  padding: EdgeInsets.all(8),
-                                  height: 50,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        '${tabText} list',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w800),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerRight,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                            children: <Widget>[
-                                              Container(
-                                                  child: IconButton(
-                                                    icon: Icon(Icons.grid_view),
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        listVisible = false;
-                                                        gridVisible = true;
-                                                      });
-                                                    },
-                                                  )),
-                                              Container(
-                                                  child: IconButton(
-                                                    icon: Icon(Icons.list),
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        listVisible = true;
-                                                        gridVisible = false;
-                                                      });
-                                                    },
-                                                  )),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                              //ListView
-                              Visibility(
-                                visible: listVisible,
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.37,
-                                  child: ListView.builder(
-                                      itemCount: foodList.length,
-                                      itemBuilder: (context, index) {
-                                        return Card(
-                                          elevation: 2,
-                                          child: ListTile(
-                                            onTap: (){
-                                              Navigator.push(
-                                                  context, MaterialPageRoute(builder: (context) => ProductDetials()));
-                                            },
-                                            trailing: addedCart[index] != 0
-                                                ? Container(
-                                              margin:
-                                              EdgeInsets.only(top: 17),
-                                              color: red,
-                                              width: 65,
-                                              height: 30,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
-                                                children: <Widget>[
-                                                  GestureDetector(
-                                                      onTap: () {
-                                                        print("-");
-                                                        setState(() {
-                                                          addedCart[index] = addedCart[index] - 1;
-                                                          cartItemCount--;
-                                                          if (cartItemCount == 0) {
-                                                            opacity = 0.0;
-                                                            bottomSheetVisible = false;
-                                                          }
-                                                        });
+                    )),
+                Container(
+                  child: DefaultTabController(
+                    length: tabs.length,
+                    child: Container(
+                      child: Builder(builder: (BuildContext context) {
+                        final TabController tabController =
+                        DefaultTabController.of(context)!;
+                        tabController.addListener(() {
+                          if (!tabController.indexIsChanging) {
+                            setState(() {
+                              tabText = tabs[tabController.index].text!;
+                              print(tabText);
+                            });
+                            // Your code goes here.
+                            // To get index of current tab use tabController.index
+                          }
+                        });
+                        return  Column(
+                          children: [
+                            Container(
+                                width: MediaQuery.of(context).size.width,
+                                child:TabBar(tabs: tabs,isScrollable: true,labelColor: black,)
+                            ),
+                            Container(
+                                child:  IndexedStack(
+                                  children: tabs.map((Tab tab) {
+                                    return  Column(
+                                      children: <Widget>[
+                                        //ListView
+                                        Visibility(
+                                          visible: listVisible,
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width,
+                                            height:
+                                            MediaQuery.of(context).size.height * 0.76,
+                                            child: ListView.builder(
+                                                itemCount: foodList.length,
+                                                itemBuilder: (context, index) {
+                                                  return Card(
+                                                    elevation: 2,
+                                                    child: ListTile(
+                                                      onTap: (){
+                                                        Navigator.push(
+                                                            context, MaterialPageRoute(builder: (context) => ProductDetials()));
                                                       },
-                                                      child: Icon(
-                                                        Icons.remove,
-                                                        color: white,
-                                                      )),
-                                                  Text(
-                                                    '${addedCart[index]}',
-                                                    style: TextStyle(
-                                                        color: white,
-                                                        fontSize: 14),
-                                                  ),
-                                                  GestureDetector(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          bottomSheetVisible = true;
-                                                          addedCart[index] =
-                                                              addedCart[
-                                                              index] + 1;
-                                                          cartItemCount++;
-                                                        });
-                                                      },
-                                                      child: Icon(
-                                                        Icons.add,
-                                                        color: white,
-                                                      )),
-                                                ],
-                                              ),
-                                            )
-                                                : Container(
-                                              margin:
-                                              EdgeInsets.only(top: 17),
-                                              width: 65,
-                                              height: 30,
-                                              child: RaisedButton(
-                                                color: red,
-                                                onPressed: () {
-                                                  setState(() {
-                                                    print(foodList);
-                                                    cartItemCount++;
-                                                    addedCart[index] =
-                                                        addedCart[index] +
-                                                            1;
-                                                    if (cartItemCount > 0) {
-                                                      opacity = 1.0;
-                                                      bottomSheetVisible = true;
-                                                    } else {
-                                                      opacity = 0.0;
-                                                      bottomSheetVisible = false;
-                                                    }
-                                                  });
-                                                },
-                                                child: Text(
-                                                  "ADD",
-                                                  style: TextStyle(
-                                                      color: white,
-                                                      fontSize: 12),
-                                                ),
-                                              ),
-                                            ),
-                                            title: Row(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.all(3),
-                                                  child: Text(
-                                                      '${foodList[index].toString()}'),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.all(3),
-                                                  decoration: BoxDecoration(
-                                                      color: white,
-                                                      border: Border.all()),
-                                                  padding: EdgeInsets.all(3.5),
-                                                  child: CircleAvatar(
-                                                    radius: 3.5,
-                                                    backgroundColor: Colors.green,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.all(3),
-                                                  child: Text(
-                                                    '(available)',
-                                                    style: TextStyle(
-                                                        color: black,
-                                                        fontSize: 14),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            subtitle: Column(
-                                              children: <Widget>[
-                                                Container(
-                                                    alignment:
-                                                    Alignment.centerLeft,
-                                                    width: double.infinity,
-                                                    child: Text(
-                                                      'This is sample description helloo how are you uuuuuuuuuuuuuu',
-                                                      style: TextStyle(
-                                                          color: grey,
-                                                          fontSize: 11,
-                                                          fontWeight:
-                                                          FontWeight.w900),
-                                                    )),
-                                                Container(
-                                                  margin: EdgeInsets.only(top: 8),
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Text(
-                                                    'RS: 75',
-                                                    style: TextStyle(
-                                                        color: black,
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                        FontWeight.w900),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      }),
-                                ),
-                              ),
-                              //Gridview
-                              Visibility(
-                                  visible: gridVisible,
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height:
-                                    MediaQuery.of(context).size.height * 0.37,
-                                    child: GridView.builder(
-                                      padding: EdgeInsets.all(7),
-                                      gridDelegate:
-                                      SliverGridDelegateWithMaxCrossAxisExtent(
-                                          maxCrossAxisExtent: 200,
-                                          childAspectRatio: 3 / 3,
-                                          crossAxisSpacing: 20,
-                                          mainAxisSpacing: 20),
-                                      itemCount: foodList.length,
-                                      itemBuilder: (context, index) {
-                                        return GestureDetector(
-                                          onTap: (){
-                                            Navigator.push(
-                                                context, MaterialPageRoute(builder: (context) => ProductDetials()));
-                                          },
-                                          child: Card(
-                                            elevation: 2,
-                                            child: Container(
-                                              padding: EdgeInsets.all(7),
-                                              child:Column(
-                                                children: <Widget>[
-                                                  Row(
-                                                    children:<Widget> [
-                                                      Padding(
-                                                        padding:
-                                                        const EdgeInsets.all(3),
-                                                        child: Text(
-                                                            '${foodList[index].toString()}'),
-                                                      ),
-                                                      Expanded(
-                                                          child: Container(
-                                                            alignment: Alignment.centerRight,
-                                                            child: Container(
-                                                              margin: EdgeInsets.all(3),
-                                                              decoration: BoxDecoration(
+                                                      trailing: addedCart[index] != 0
+                                                          ? Container(
+                                                        margin:
+                                                        EdgeInsets.only(top: 17),
+                                                        color: red,
+                                                        width: 65,
+                                                        height: 30,
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                          children: <Widget>[
+                                                            GestureDetector(
+                                                                onTap: () {
+                                                                  print("-");
+                                                                  setState(() {
+                                                                    addedCart[index] = addedCart[index] - 1;
+                                                                    cartItemCount--;
+                                                                    if (cartItemCount == 0) {
+                                                                      opacity = 0.0;
+                                                                      bottomSheetVisible = false;
+                                                                    }
+                                                                  });
+                                                                },
+                                                                child: Icon(
+                                                                  Icons.remove,
                                                                   color: white,
-                                                                  border: Border.all()),
-                                                              padding: EdgeInsets.all(3.5),
-                                                              child: CircleAvatar(
-                                                                radius: 3.5,
-                                                                backgroundColor: Colors.green,
-                                                              ),
+                                                                )),
+                                                            Text(
+                                                              '${addedCart[index]}',
+                                                              style: TextStyle(
+                                                                  color: white,
+                                                                  fontSize: 14),
                                                             ),
-                                                          )
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Container(
-                                                    child: Text(
-                                                      'This is sample description helloo how are you uuuuuuuuuuuuuu',
-                                                      style: TextStyle(
-                                                          color: grey,
-                                                          fontSize: 11,
-                                                          fontWeight:
-                                                          FontWeight.w900),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Row(
-                                                      children:<Widget> [
-                                                        Padding(
-                                                          padding:
-                                                          const EdgeInsets.all(3),
-                                                          child: Text(
-                                                              'RS: 75'),
+                                                            GestureDetector(
+                                                                onTap: () {
+                                                                  setState(() {
+                                                                    bottomSheetVisible = true;
+                                                                    addedCart[index] =
+                                                                        addedCart[
+                                                                        index] + 1;
+                                                                    cartItemCount++;
+                                                                  });
+                                                                },
+                                                                child: Icon(
+                                                                  Icons.add,
+                                                                  color: white,
+                                                                )),
+                                                          ],
                                                         ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                      alignment: Alignment.centerLeft,
-                                                      child: addedCart[index] != 0 ?
-                                                      Container(
-                                                        alignment: Alignment.centerLeft,
-                                                        child: Container(
+                                                      )
+                                                          : Container(
+                                                        margin:
+                                                        EdgeInsets.only(top: 17),
+                                                        width: 65,
+                                                        height: 30,
+                                                        child: RaisedButton(
                                                           color: red,
-                                                          width: 65,
-                                                          height: 30,
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                            children: <Widget>[
-                                                              GestureDetector(
-                                                                  onTap: () {
-                                                                    print("-");
-                                                                    setState(() {
-                                                                      addedCart[index] = addedCart[index] - 1;
-                                                                      cartItemCount--;
-                                                                      if (cartItemCount == 0) {
-                                                                        opacity = 0.0;
-                                                                        bottomSheetVisible = false;
-                                                                      }
-                                                                    });
-                                                                  },
-                                                                  child: Icon(
-                                                                    Icons.remove,
-                                                                    color: white,
-                                                                  )),
-                                                              Text(
-                                                                '${addedCart[index]}',
-                                                                style: TextStyle(
-                                                                    color: white,
-                                                                    fontSize: 14),
-                                                              ),
-                                                              GestureDetector(
-                                                                  onTap: () {
-                                                                    setState(() {
-                                                                      bottomSheetVisible = true;
-                                                                      addedCart[index] =
-                                                                          addedCart[
-                                                                          index] +
-                                                                              1;
-                                                                      cartItemCount++;
-                                                                    });
-                                                                  },
-                                                                  child: Icon(
-                                                                    Icons.add,
-                                                                    color: white,
-                                                                  )),
-                                                            ],
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              print(foodList);
+                                                              cartItemCount++;
+                                                              addedCart[index] =
+                                                                  addedCart[index] +
+                                                                      1;
+                                                              if (cartItemCount > 0) {
+                                                                opacity = 1.0;
+                                                                bottomSheetVisible = true;
+                                                              } else {
+                                                                opacity = 0.0;
+                                                                bottomSheetVisible = false;
+                                                              }
+                                                            });
+                                                          },
+                                                          child: Text(
+                                                            "ADD",
+                                                            style: TextStyle(
+                                                                color: white,
+                                                                fontSize: 12),
                                                           ),
                                                         ),
-                                                      ):
-                                                      Container(
-                                                          alignment: Alignment.centerLeft,
-                                                          child: Container(
-                                                            width: 65,
-                                                            height: 30,
-                                                            child: RaisedButton(
-                                                              color: red,
-                                                              onPressed: () {
-                                                                setState(() {
-                                                                  print(foodList);
-                                                                  cartItemCount++;
-                                                                  addedCart[index] =
-                                                                      addedCart[index] +
-                                                                          1;
-                                                                  if (cartItemCount > 0) {
-                                                                    bottomSheetVisible = true;
-                                                                    opacity = 1.0;
-                                                                  } else {
-                                                                    opacity = 0.0;
-                                                                    bottomSheetVisible = false;
-                                                                  }
-                                                                });
-                                                              },
+                                                      ),
+                                                      title: Row(
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                            const EdgeInsets.all(3),
+                                                            child: Text(
+                                                                '${foodList[index].toString()}'),
+                                                          ),
+                                                          Container(
+                                                            margin: EdgeInsets.all(3),
+                                                            decoration: BoxDecoration(
+                                                                color: white,
+                                                                border: Border.all()),
+                                                            padding: EdgeInsets.all(3.5),
+                                                            child: CircleAvatar(
+                                                              radius: 3.5,
+                                                              backgroundColor: Colors.green,
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                            const EdgeInsets.all(3),
+                                                            child: Text(
+                                                              '(available)',
+                                                              style: TextStyle(
+                                                                  color: black,
+                                                                  fontSize: 14),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      subtitle: Column(
+                                                        children: <Widget>[
+                                                          Container(
+                                                              alignment:
+                                                              Alignment.centerLeft,
+                                                              width: double.infinity,
                                                               child: Text(
-                                                                "ADD",
+                                                                'This is sample description helloo how are you uuuuuuuuuuuuuu',
                                                                 style: TextStyle(
-                                                                    color: white,
-                                                                    fontSize: 12),
-                                                              ),
+                                                                    color: grey,
+                                                                    fontSize: 11,
+                                                                    fontWeight:
+                                                                    FontWeight.w900),
+                                                              )),
+                                                          Container(
+                                                            margin: EdgeInsets.only(top: 8),
+                                                            alignment: Alignment.centerLeft,
+                                                            child: Text(
+                                                              'RS: 75',
+                                                              style: TextStyle(
+                                                                  color: black,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                  FontWeight.w900),
                                                             ),
                                                           )
-                                                      )
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                }),
                                           ),
-                                        );
-                                      },
-                                    ),
-                                  )),
-                            ],
-                          ),
+                                        ),
+                                        //Gridview
+                                        Visibility(
+                                            visible: gridVisible,
+                                            child: Container(
+                                              width: MediaQuery.of(context).size.width,
+                                              height:
+                                              MediaQuery.of(context).size.height * 0.76,
+                                              child: GridView.builder(
+                                                padding: EdgeInsets.all(7),
+                                                gridDelegate:
+                                                SliverGridDelegateWithMaxCrossAxisExtent(
+                                                    maxCrossAxisExtent: 200,
+                                                    childAspectRatio: 3 / 3,
+                                                    crossAxisSpacing: 20,
+                                                    mainAxisSpacing: 20),
+                                                itemCount: foodList.length,
+                                                itemBuilder: (context, index) {
+                                                  return GestureDetector(
+                                                    onTap: (){
+                                                      Navigator.push(
+                                                          context, MaterialPageRoute(builder: (context) => ProductDetials()));
+                                                    },
+                                                    child: Card(
+                                                      elevation: 2,
+                                                      child: Container(
+                                                        margin: EdgeInsets.all(7),
+                                                        child:Column(
+                                                          children: <Widget>[
+                                                            Row(
+                                                              children:<Widget> [
+                                                                Padding(
+                                                                  padding:
+                                                                  const EdgeInsets.all(3),
+                                                                  child: Text(
+                                                                      '${foodList[index].toString()}'),
+                                                                ),
+                                                                Expanded(
+                                                                    child: Container(
+                                                                      alignment: Alignment.centerRight,
+                                                                      child: Container(
+                                                                        margin: EdgeInsets.all(3),
+                                                                        decoration: BoxDecoration(
+                                                                            color: white,
+                                                                            border: Border.all()),
+                                                                        padding: EdgeInsets.all(3.5),
+                                                                        child: CircleAvatar(
+                                                                          radius: 3.5,
+                                                                          backgroundColor: Colors.green,
+                                                                        ),
+                                                                      ),
+                                                                    )
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Container(
+                                                              child: Text(
+                                                                'This is sample description helloo how are you uuuuuuuuuuuuuu',
+                                                                style: TextStyle(
+                                                                    color: grey,
+                                                                    fontSize: 11,
+                                                                    fontWeight:
+                                                                    FontWeight.w900),
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child: Row(
+                                                                children:<Widget> [
+                                                                  Padding(
+                                                                    padding:
+                                                                    const EdgeInsets.all(3),
+                                                                    child: Text(
+                                                                        'RS: 75'),
+                                                                  ),
+                                                                  Expanded(
+                                                                      child: addedCart[index] != 0 ?
+                                                                      Container(
+                                                                        alignment: Alignment.centerRight,
+                                                                        child: Container(
+                                                                          color: red,
+                                                                          width: 65,
+                                                                          height: 30,
+                                                                          child: Row(
+                                                                            mainAxisAlignment:
+                                                                            MainAxisAlignment
+                                                                                .spaceBetween,
+                                                                            children: <Widget>[
+                                                                              GestureDetector(
+                                                                                  onTap: () {
+                                                                                    print("-");
+                                                                                    setState(() {
+                                                                                      addedCart[index] = addedCart[index] - 1;
+                                                                                      cartItemCount--;
+                                                                                      if (cartItemCount == 0) {
+                                                                                        opacity = 0.0;
+                                                                                        bottomSheetVisible = false;
+                                                                                      }
+                                                                                    });
+                                                                                  },
+                                                                                  child: Icon(
+                                                                                    Icons.remove,
+                                                                                    color: white,
+                                                                                  )),
+                                                                              Text(
+                                                                                '${addedCart[index]}',
+                                                                                style: TextStyle(
+                                                                                    color: white,
+                                                                                    fontSize: 14),
+                                                                              ),
+                                                                              GestureDetector(
+                                                                                  onTap: () {
+                                                                                    setState(() {
+                                                                                      bottomSheetVisible = true;
+                                                                                      addedCart[index] =
+                                                                                          addedCart[
+                                                                                          index] +
+                                                                                              1;
+                                                                                      cartItemCount++;
+                                                                                    });
+                                                                                  },
+                                                                                  child: Icon(
+                                                                                    Icons.add,
+                                                                                    color: white,
+                                                                                  )),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ):
+                                                                      Container(
+                                                                          alignment: Alignment.centerRight,
+                                                                          child: Container(
+                                                                            width: 65,
+                                                                            height: 30,
+                                                                            child: RaisedButton(
+                                                                              color: red,
+                                                                              onPressed: () {
+                                                                                setState(() {
+                                                                                  print(foodList);
+                                                                                  cartItemCount++;
+                                                                                  addedCart[index] =
+                                                                                      addedCart[index] +
+                                                                                          1;
+                                                                                  if (cartItemCount > 0) {
+                                                                                    bottomSheetVisible = true;
+                                                                                    opacity = 1.0;
+                                                                                  } else {
+                                                                                    opacity = 0.0;
+                                                                                    bottomSheetVisible = false;
+                                                                                  }
+                                                                                });
+                                                                              },
+                                                                              child: Text(
+                                                                                "ADD",
+                                                                                style: TextStyle(
+                                                                                    color: white,
+                                                                                    fontSize: 12),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                      )
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            )),
+                                      ],
+                                    );
+                                  }).toList(),
+                                )
+                            )
+                          ],
+                        );
+                      }
+                      ),
                     ),
-
                   ),
-                ),
-              ],
-            ),
-          ),
-          bottomSheet: bottomSheet(),
-        )
+                )
+              ])
+      ),bottomSheet: bottomSheet(),
     );
   }
   Widget bottomSheet(){
